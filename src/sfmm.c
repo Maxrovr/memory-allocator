@@ -1,8 +1,3 @@
-/**
- * All functions you make for the assignment must be implemented in this file.
- * Do not submit your assignment with a main function in this file.
- * If you submit with a main function in this file, you will get a zero.
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -197,19 +192,14 @@ void *sf_memalign(size_t size, size_t align) {
     if((uintptr_t)pp%align==0)
     {
         second_block = first_block;
-        // return first_block->body.payload;
     }
     else
     {
         pp = pp +  align - (uintptr_t)pp%align;
-        // debug("new pp: %p ", pp);
         second_block = pp - (2*sizeof(sf_header));
-        // debug("leftover on top: %ld", (void *)second_block - (void *)first_block);
         set_blocksize(first_block, (void *)second_block - (void *)first_block, 0, get_prev_alloc(first_block));
         add_to_freelist(first_block);
         set_blocksize(second_block, initial_size-get_blocksize(first_block), 1, 0);
-
-        // set_blocksize(block, size, (void *)second_block - (void *)block);
     }
     size_t unused_size = get_blocksize(second_block) - size;
     if(unused_size>=MIN_BLOCKSIZE)
@@ -237,7 +227,6 @@ size_t get_min_blocksize(size_t size)
     size_t total = size + get_header_size();
     if(total<MIN_BLOCKSIZE) return MIN_BLOCKSIZE;
     total = ((total-1)|(MIN_BLOCKSIZE-1))+1;
-    // debug("size: %ld size: %ld", size, total);
     return total;
 }
 
@@ -284,12 +273,10 @@ void add_to_freelist(sf_block *block)
         return;
     }
     int freelist_index = get_freelist_index(blocksize);
-    // debug("%d", freelist_index);
     sf_block *free_sentinel = sf_free_list_heads+(freelist_index);
     sf_block *next_block= free_sentinel->body.links.next;
     next_block->body.links.prev = block;
     free_sentinel->body.links.next = block;
-    // free_sentinel->body.links.prev = block;
     block->body.links.prev = free_sentinel;
     block->body.links.next = next_block;
     return;
@@ -326,9 +313,7 @@ void init_freelist_heads()
 void set_blocksize(sf_block *block, size_t size, int is_alloc, int is_prevalloc)
 {
     set_header(&block->header, size, is_alloc, is_prevalloc);
-    // debug("block: %p", block);
     sf_block *next_block = (void *)block+size;
-    // debug("next_block: %p", next_block);
     set_footer(&next_block->prev_footer, size, is_alloc, is_prevalloc);
 }
 
@@ -337,13 +322,10 @@ void set_header(sf_header *header, size_t size, int is_alloc, int is_prevalloc)
     *header=size;
     *header|=is_alloc;
     *header|=(is_prevalloc<<1);
-    // debug("hd: %ld", *header);
 }
 
 void set_footer(sf_footer *footer, size_t size, int is_alloc, int is_prevalloc)
 {
-    // if(*footer<MIN_BLOCKSIZE) return;
-
    *footer = size;
    *footer|=is_alloc;
    *footer|=(is_prevalloc<<1);
