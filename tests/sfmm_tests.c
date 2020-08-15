@@ -200,8 +200,3 @@ Test(sf_memsuite_student, realloc_smaller_block_free_block, .init = sf_mem_init,
 	assert_free_block_count(0, 1);
 	assert_free_block_count(3904, 1);
 }
-
-//############################################
-//STUDENT UNIT TESTS SHOULD BE WRITTEN BELOW
-//DO NOT DELETE THESE COMMENTS
-//############################################
