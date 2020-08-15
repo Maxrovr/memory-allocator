@@ -148,3 +148,5 @@ When you compile your program with `make`, a `sfmm_tests` executable will be
 created in the `bin` folder alongside the `main` executable. This can be run
 with `bin/sfmm_tests`. To obtain more information about each test run, you can
 use the verbose print option: `bin/sfmm_tests --verbose=0`.
+
+For System Fundamentals II - Memory Allocator
