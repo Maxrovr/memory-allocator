@@ -1,6 +1,5 @@
 # Usage
-`make clean`
-- Once you run the make command, you will be able to use void `*sf_malloc(size_t size)`, `void* sf_realloc(void *ptr, size_t size)`, `void sf_free(void *ptr)`, `void *sf_memalign(size_t size, size_t align)` to manipulate memory requirements. 
+- You will be able to use void `*sf_malloc(size_t size)`, `void* sf_realloc(void *ptr, size_t size)`, `void sf_free(void *ptr)`, `void *sf_memalign(size_t size, size_t align)` to manipulate memory requirements. 
 - You can start by just testing out various scenarios on the `sfmm_test.c` file or directly calling these functions from the `main.c` file.
 
 
